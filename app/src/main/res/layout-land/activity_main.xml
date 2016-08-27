@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@drawable/zzzzz000wooden_back01"
+             android:id="@+id/frameLayout"
+             tools:context=".MainActivity"
+             android:focusableInTouchMode="false"
+    >
+
+
+    <ImageView
+        android:layout_width="550dp"
+        android:layout_height="520dp"
+        android:id="@+id/plateImage"
+        android:layout_gravity="center_vertical|bottom|left"
+        android:src="@drawable/zzzzz000plate1_400"
+        android:visibility="visible"
+        android:focusableInTouchMode="false"
+        android:layout_marginLeft="50dp"
+        android:scaleType="fitCenter"/>
+
+
+    <!-- FoodImage -->
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/foodImage"
+        android:src="@drawable/zzzzz000start_screen"
+        android:layout_gravity="center_vertical|bottom|left"
+        android:scaleType="matrix"
+        android:visibility="visible"
+        android:nestedScrollingEnabled="false"
+        android:layout_marginLeft="300dp"
+        android:layout_marginBottom="200dp"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="400dp"
+        android:id="@+id/forkView"
+        android:layout_gravity="left|bottom"
+        android:src="@drawable/zzzzz000fork01"
+        android:scaleType="fitCenter"
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="25dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/PlateB"
+        android:layout_gravity="right|center"
+        android:src="@drawable/zzzzz000start_screen"
+        android:scaleType="fitCenter"
+        android:layout_marginRight="50dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Prev"
+        android:id="@+id/prev_button"
+        android:layout_gravity="left|top"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:id="@+id/next_button"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginRight="100dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start By X"
+        android:id="@+id/startByX"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="50dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start By Y"
+        android:id="@+id/startByY"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="100dp"/>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set"
+        android:id="@+id/set_button"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="100dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/cancel_button"
+        android:layout_gravity="left|top"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="100dp"/>
+
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="98dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Large Text"
+        android:id="@+id/debugTest"
+        android:layout_gravity="left|top"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:textIsSelectable="false"
+        android:textColor="@android:color/white"
+        android:textAlignment="textStart"
+        android:background="@android:color/black"
+        android:autoText="false"
+        android:layout_marginLeft="150dp"/>
+
+</FrameLayout>

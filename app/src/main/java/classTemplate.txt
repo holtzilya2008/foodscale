@@ -1,0 +1,15 @@
+/*
+
+package ilyaandvladi.dietappv05;
+
+ *** Class Template - Code devision to sections
+
+
+ public class X {
+
+/* --------------------------------- Fields -------------------------------- */
+
+
+
+
+*/
