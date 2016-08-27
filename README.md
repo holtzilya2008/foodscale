@@ -1,0 +1,2 @@
+# foodscale
+A helper app
