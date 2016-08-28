@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             android:background="@drawable/zzzzz000wooden_back01"
-             android:id="@+id/frameLayout"
-             tools:context=".MainActivity"
-             android:focusableInTouchMode="false"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/zzzzz000wooden_back01"
+    android:id="@+id/frameLayout"
+    tools:context=".MainActivity"
+    android:focusableInTouchMode="false"
     >
 
 
@@ -34,8 +34,8 @@
         android:scaleType="matrix"
         android:visibility="visible"
         android:nestedScrollingEnabled="false"
-        android:layout_marginLeft="300dp"
-        android:layout_marginBottom="200dp"/>
+        android:layout_marginLeft="200dp"
+        android:layout_marginBottom="50dp"/>
 
     <ImageView
         android:layout_width="100dp"
@@ -94,7 +94,24 @@
         android:text="Set"
         android:id="@+id/set_button"
         android:layout_gravity="left|top"
-        android:layout_marginTop="100dp"/>
+        android:layout_marginTop="150dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rotate"
+        android:id="@+id/rotate_button"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="200dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TEST"
+        android:id="@+id/test_button"
+        android:visibility="gone"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="200dp"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -102,8 +119,8 @@
         android:text="Cancel"
         android:id="@+id/cancel_button"
         android:layout_gravity="left|top"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="100dp"/>
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="150dp"/>
 
 
     <TextView

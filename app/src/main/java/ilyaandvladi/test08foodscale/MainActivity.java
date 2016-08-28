@@ -2,6 +2,7 @@ package ilyaandvladi.test08foodscale;
 
 import android.app.Activity;
 import android.net.Uri;
+import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -32,7 +35,9 @@ public class MainActivity extends Activity {
     private String filename;
     private Button buttonPrev;
     private Button buttonNext;
+    private Button buttonRotate;
     private TextView text;
+    private MainActivity activity;
 
     ImageFiles imageFiles;
 
@@ -95,6 +100,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        activity = this;
 
 
         iv = (ImageView)findViewById(R.id.PlateB);
@@ -110,7 +116,7 @@ public class MainActivity extends Activity {
         cancelButton.setVisibility(View.GONE);
         startByX = (Button)findViewById(R.id.startByX);
         startByY = (Button)findViewById(R.id.startByY);
-
+        buttonRotate = (Button) findViewById(R.id.rotate_button);
         imageFiles = new ImageFiles();
 
         text = (TextView)findViewById(R.id.debugTest);
@@ -192,7 +198,17 @@ public class MainActivity extends Activity {
                 setActive();
             }
         });
+        buttonRotate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Animation rotation = AnimationUtils.loadAnimation(activity, R.anim.button_rotate);
+                iv.setAnimation(rotation);
+                iv.startAnimation(rotation);
+            };
+        });
     }
+
+
 
     private void GetNext(){
         imageFiles.Next();
@@ -213,7 +229,8 @@ public class MainActivity extends Activity {
         filename = imageFiles.getCurrentSource();
         text.setText(filename);
         iv.setImageURI(Uri.fromFile(new File(filename)));
-        Log.d(TAG,"current file: f" + filename);
+                //rotation.setRepeatCount(Animation.INFINITE);
+                Log.d(TAG, "current file: f" + filename);
     }
 
     public void setActive(){
@@ -413,6 +430,7 @@ public class MainActivity extends Activity {
         cancelButton.bringToFront();
         startByX.bringToFront();
         startByY.bringToFront();
+        buttonRotate.bringToFront();
         text.bringToFront();
     }
 
