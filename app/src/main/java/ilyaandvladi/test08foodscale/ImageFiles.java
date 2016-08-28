@@ -1,8 +1,14 @@
 package ilyaandvladi.test08foodscale;
 
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by ilya on 9/10/15.
@@ -18,8 +24,8 @@ public class ImageFiles {
 
 /* ---------------------------- Constant Values ---------------------------- */
 
-    public static final int FIRST = 1;
-    public static final int LAST = 14;
+    public static final int FIRST = 0;
+    //public static final int LAST = 0;
 
 /* ---------------------------- DEBUG Environment -------------------------- */
 
@@ -31,9 +37,6 @@ public class ImageFiles {
         sourcePhotos = new ArrayList<>();
         scaledImages = new ArrayList<>();
         current = FIRST;
-
-        sourcePhotos.add(0,"");
-        scaledImages.add(0,"");
         arrayInit();
         Log.d(TAG,"Array Constructed!");
     }
@@ -45,16 +48,11 @@ public class ImageFiles {
         return current;
     }
 
-    public int Last(){
-        current = LAST;
-        return current;
-    }
-
     public int Next(){
-        if (current < LAST){
-            current++;
+        if (current + 1 >= sourcePhotos.size() || !(current + 1 > 0)) {
+            return current;
         }
-        return current;
+        return ++current;
     }
 
     public int Prev(){
@@ -73,42 +71,38 @@ public class ImageFiles {
     }
 
 /* ----------------------------- Object Methods ---------------------------- */
+    private ArrayList<String> getList(File parentDir, String pathToParentDir) {
 
+        ArrayList<String> inFiles = new ArrayList<String>();
+        String[] fileNames = parentDir.list();
+
+        Log.d(pathToParentDir,"grabbing from parent directory");
+
+        for (String fileName : fileNames) {
+            if (fileName.toLowerCase().endsWith(".jpg")  ||
+                fileName.toLowerCase().endsWith(".jpeg") ||
+                fileName.toLowerCase().endsWith(".png")  ||
+                fileName.toLowerCase().endsWith(".gif")    )  {
+                inFiles.add(pathToParentDir + fileName);
+            } else {
+                File file = new File(parentDir.getPath() + "/" + fileName);
+                if (file.isDirectory()) {
+                    inFiles.addAll(getList(file, pathToParentDir + fileName + "/"));
+                }
+            }
+        }
+
+        return inFiles;
+    }
 /* ------------------------ Image Files Initialization --------------------- */
 
     private void arrayInit(){
-        /* Add the corresponding filenames without the extension
-         * E.G: if the filename is "foodname_t.png" write just "foodname_t" */
+        // In DCIM/Camera must be two folders: /regular, with view on plate, and /transparent without background
+        String camera_folder_regular = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()+"/Camera/regular/";
+        sourcePhotos = getList(new File(camera_folder_regular), camera_folder_regular);
 
-        sourcePhotos.add(1,"avocado_p");
-        sourcePhotos.add(2,"burger_m");
-        sourcePhotos.add(3,"burger_p");
-        sourcePhotos.add(4,"mafe_m");
-        sourcePhotos.add(5,"pastrama");
-        sourcePhotos.add(6,"pepper_m");
-        sourcePhotos.add(7,"pork_steak_pl");
-        sourcePhotos.add(8,"shnizel_m");
-        sourcePhotos.add(9,"steak_ml");
-        sourcePhotos.add(10,"steak_pm");
-        sourcePhotos.add(11,"steak_ps");
-        sourcePhotos.add(12,"strip_m");
-        sourcePhotos.add(13,"strip_p");
-        sourcePhotos.add(14,"sugar_m");
-
-        scaledImages.add(1,"avocado_p_t");
-        scaledImages.add(2,"burger_m_t1");
-        scaledImages.add(3,"burger_p_t");
-        scaledImages.add(4,"mafe_m_t");
-        scaledImages.add(5,"pastrama_t");
-        scaledImages.add(6,"pepper_m_t");
-        scaledImages.add(7,"pork_steak_pl_t");
-        scaledImages.add(8,"shnizel_m_t");
-        scaledImages.add(9,"steak_ml_t");
-        scaledImages.add(10,"steak_pm_t");
-        scaledImages.add(11,"steak_ps_t");
-        scaledImages.add(12,"strip_m_t");
-        scaledImages.add(13,"strip_p_t");
-        scaledImages.add(14,"sugar_m_t");
+        String camera_folder_transparent = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()+"/Camera/transparent/";
+        scaledImages = getList(new File(camera_folder_transparent), camera_folder_transparent);
 
     }
 

@@ -1,2 +1,2 @@
 # foodscale
-A helper app
+A helper app for contributors

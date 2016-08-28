@@ -1,6 +1,7 @@
 package ilyaandvladi.test08foodscale;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import static android.view.MotionEvent.*;
@@ -210,8 +212,7 @@ public class MainActivity extends Activity {
     private void setFilename(){
         filename = imageFiles.getCurrentSource();
         text.setText(filename);
-        int icon_id = getResources().getIdentifier(filename, "drawable", getPackageName());
-        iv.setImageResource(icon_id);
+        iv.setImageURI(Uri.fromFile(new File(filename)));
         Log.d(TAG,"current file: f" + filename);
     }
 
@@ -357,8 +358,10 @@ public class MainActivity extends Activity {
     }
 
     public void calibrateFoodImage(){
-        int icon_id = getResources().getIdentifier(imageFiles.getCurrentScaled(), "drawable", getPackageName());
-        foodImage.setImageResource(icon_id);
+
+        filename = imageFiles.getCurrentScaled();
+        text.setText(filename);
+        foodImage.setImageURI(Uri.fromFile(new File(filename)));
         ImageView plate = (ImageView)findViewById(R.id.plateImage);
         FrameLayout.LayoutParams newParams;
         newParams = new FrameLayout.LayoutParams(
