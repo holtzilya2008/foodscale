@@ -1,6 +1,7 @@
 package ilyaandvladi.test08foodscale;
 
 import android.app.Activity;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
@@ -30,7 +31,9 @@ public class MainActivity extends Activity {
 
     /* --------------------------- Environment -------------------------- */
 
-    private ImageView iv;
+    private ImageView originalPicture;
+    private Matrix originalPictureMatrix;
+    private float originalPictureAngle;
     private ImageView foodImage;
     private String filename;
     private Button buttonPrev;
@@ -47,10 +50,10 @@ public class MainActivity extends Activity {
     private float y;
     private boolean moving;
 
+    //float variables for arithmetic calculation
     private final int D_UNITS = 1000;
     private final int PLATEA_D = 485;
     private float Ua;
-
     private float plateB_d;
     private float plateB_left;
     private float plateB_right;
@@ -65,16 +68,19 @@ public class MainActivity extends Activity {
 
     /* ---------------------- State machine variables ------------------ */
 
+    // Buttons
     private Button setButton;
     private Button cancelButton;
-
-    private int state;
     private Button startByX;
     private Button startByY;
+
+    //Application States
+    private int state;
     private final int ACT_BY_X = 1;
     private final int ACT_BY_Y = 2;
     private final int IDLE = 0;
 
+    //State Machine Steps
     private int step;
     private final int SET_PLATE_LEFT=1;
     private final int SET_PLATE_RIGHT=2;
@@ -102,10 +108,12 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         activity = this;
 
-
-        iv = (ImageView)findViewById(R.id.PlateB);
+        originalPicture = (ImageView)findViewById(R.id.original_picture);
+//        originalPictureMatrix = new Matrix();
+//        originalPictureMatrix.setScale((float)0.15,(float)0.15);
+//        originalPictureAngle = 0;
+//        originalPicture.setImageMatrix(originalPictureMatrix);
         foodImage = (ImageView)findViewById(R.id.foodImage);
-
         buttonPrev = (Button)findViewById(R.id.prev_button);
         buttonPrev.setClickable(true);
         buttonNext = (Button)findViewById(R.id.next_button);
@@ -122,7 +130,7 @@ public class MainActivity extends Activity {
         text = (TextView)findViewById(R.id.debugTest);
         setButtonsListener();
         setTouchListener();
-        initValues();
+        setFilename();
         setActive();
     }
 
@@ -201,14 +209,17 @@ public class MainActivity extends Activity {
         buttonRotate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Animation rotation = AnimationUtils.loadAnimation(activity, R.anim.button_rotate);
-                iv.setAnimation(rotation);
-                iv.startAnimation(rotation);
+//                final Animation rotation = AnimationUtils.loadAnimation(activity, R.anim.button_rotate);
+//                originalPicture.setAnimation(rotation);
+//                originalPicture.startAnimation(rotation);
+//                originalPictureMatrix.setRotate(90);
+//                originalPicture.setImageMatrix(originalPictureMatrix);
+                originalPictureAngle = (originalPictureAngle==90)?0:90;
+                originalPicture.setRotation(originalPictureAngle);;
+                setActive();
             };
         });
     }
-
-
 
     private void GetNext(){
         imageFiles.Next();
@@ -228,7 +239,7 @@ public class MainActivity extends Activity {
     private void setFilename(){
         filename = imageFiles.getCurrentSource();
         text.setText(filename);
-        iv.setImageURI(Uri.fromFile(new File(filename)));
+        originalPicture.setImageURI(Uri.fromFile(new File(filename)));
                 //rotation.setRepeatCount(Animation.INFINITE);
                 Log.d(TAG, "current file: f" + filename);
     }
@@ -274,7 +285,7 @@ public class MainActivity extends Activity {
         cancelButton.setVisibility(View.GONE);
         startByX.setVisibility(View.VISIBLE);
         startByY.setVisibility(View.VISIBLE);
-        iv.bringToFront();
+        originalPicture.bringToFront();
         foodImage.setVisibility(View.GONE);
         bringTofrontButtons();
     }
@@ -286,6 +297,7 @@ public class MainActivity extends Activity {
                 cancelButton.setVisibility(View.VISIBLE);
                 startByX.setVisibility(View.GONE);
                 startByY.setVisibility(View.GONE);
+                buttonRotate.setVisibility(View.GONE);
                 text.setText("Set Plate Start");
                 break;
             case SET_PLATE_RIGHT:
@@ -346,7 +358,7 @@ public class MainActivity extends Activity {
     }
 
     public void setTouchListener(){
-        iv.setOnTouchListener(new View.OnTouchListener() {
+        originalPicture.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (step == LOG_RESULTS) {

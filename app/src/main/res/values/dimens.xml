@@ -32,4 +32,8 @@
 
     <dimen name="food_menu_frame_w">447dp</dimen>
     <dimen name="food_menu_frame_h">420dp</dimen>
+
+    <dimen name="original_picture_size">750dp</dimen>
+
+
 </resources>
