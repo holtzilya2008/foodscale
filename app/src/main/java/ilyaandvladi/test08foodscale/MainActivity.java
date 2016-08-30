@@ -297,7 +297,7 @@ public class MainActivity extends Activity {
                 cancelButton.setVisibility(View.VISIBLE);
                 startByX.setVisibility(View.GONE);
                 startByY.setVisibility(View.GONE);
-                buttonRotate.setVisibility(View.GONE);
+                //buttonRotate.setVisibility(View.GONE);
                 text.setText("Set Plate Start");
                 break;
             case SET_PLATE_RIGHT:

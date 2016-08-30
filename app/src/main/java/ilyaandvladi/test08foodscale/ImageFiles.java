@@ -8,6 +8,7 @@ import android.util.Log;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -100,10 +101,10 @@ public class ImageFiles {
         // In DCIM/Camera must be two folders: /regular, with view on plate, and /transparent without background
         String camera_folder_regular = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()+"/Camera/regular/";
         sourcePhotos = getList(new File(camera_folder_regular), camera_folder_regular);
-
+        Collections.sort(sourcePhotos);
         String camera_folder_transparent = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()+"/Camera/transparent/";
         scaledImages = getList(new File(camera_folder_transparent), camera_folder_transparent);
-
+        Collections.sort(scaledImages);
     }
 
     @Override
